@@ -15,20 +15,19 @@ namespace dgv_with_auto_total_class
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Children.ListChanged += parent_object.onChildrenChanged;
-
+            childs.ListChanged += parent_object.onChildrenChanged;
 
             dataGridView.AllowUserToAddRows = false;
-            dataGridView.DataSource = Children;
+            dataGridView.DataSource = childs;
 
             // Add one or more child items to autogenerate rows.
-            Children.Add(new child
+            childs.Add(new child
             {
-                    product = "GEARWRENCH Pinch Off Pliers",
-                    price = 27.10m,
-                    amount = 1.0m
+                product = "GEARWRENCH Pinch Off Pliers",
+                price = 27.10m,
+                amount = 1.0m
             });
-            Children.Add(new child
+            childs.Add(new child
             {
                 product = "AXEMAX Bungee Cords",
                 price = 25.48m,
@@ -58,7 +57,7 @@ namespace dgv_with_auto_total_class
                 DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        private readonly BindingList<child> Children = new BindingList<child>();
+        private readonly BindingList<child> childs = new BindingList<child>();
         private readonly parent parent_object = new parent();
     }
     public class child : INotifyPropertyChanged
