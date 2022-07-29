@@ -11,6 +11,7 @@ namespace dgv_with_auto_total_class
         public MainForm()
         {
             InitializeComponent();
+            numericUpDown.Maximum = decimal.MaxValue;
         }
         protected override void OnLoad(EventArgs e)
         {

@@ -48,6 +48,11 @@ namespace dgv_with_auto_total_class
             // 
             this.numericUpDown.DecimalPlaces = 2;
             this.numericUpDown.Location = new System.Drawing.Point(12, 301);
+            this.numericUpDown.Maximum = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
             this.numericUpDown.Name = "numericUpDown";
             this.numericUpDown.Size = new System.Drawing.Size(180, 31);
             this.numericUpDown.TabIndex = 1;
