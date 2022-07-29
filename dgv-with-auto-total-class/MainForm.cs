@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace dgv_with_auto_total_class
@@ -20,6 +15,9 @@ namespace dgv_with_auto_total_class
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            Children.ListChanged += parent_object.onChildrenChanged;
+
+
             dataGridView.AllowUserToAddRows = false;
             dataGridView.DataSource = Children;
 
@@ -52,13 +50,11 @@ namespace dgv_with_auto_total_class
                 }
             }
 
-            //Children.ListChanged += Children_ListChanged;
-
             numericUpDown.DataBindings.Add(
                 nameof(numericUpDown.Value),
                 parent_object, 
                 nameof(parent_object.total), 
-                true, 
+                false, 
                 DataSourceUpdateMode.OnPropertyChanged);
         }
 
@@ -122,6 +118,11 @@ namespace dgv_with_auto_total_class
             }
         }
 
+        private void recalcTotal()
+        {
+            total = price * amount;
+        }
+
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             switch (propertyName)
@@ -135,17 +136,40 @@ namespace dgv_with_auto_total_class
             }
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private void recalcTotal()
-        {
-            total = price * amount;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-    public class parent
+    public class parent : INotifyPropertyChanged
     {
-        public decimal total { get; set; }
+        decimal _total = 0;
+        public decimal total
+        {
+            get => _total;
+            set
+            {
+                if (!Equals(_total, value))
+                {
+                    _total = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        internal void onChildrenChanged(object sender, ListChangedEventArgs e)
+        {
+            var tmpTotal = 0m;
+            foreach (var child in (IList<child>)sender)
+            {
+                tmpTotal += child.total;
+            }
+            total = tmpTotal;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

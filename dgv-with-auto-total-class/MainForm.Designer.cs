@@ -44,10 +44,11 @@ namespace dgv_with_auto_total_class
             this.dataGridView.Size = new System.Drawing.Size(778, 293);
             this.dataGridView.TabIndex = 0;
             // 
-            // numericUpDown1
+            // numericUpDown
             // 
+            this.numericUpDown.DecimalPlaces = 2;
             this.numericUpDown.Location = new System.Drawing.Point(12, 301);
-            this.numericUpDown.Name = "numericUpDown1";
+            this.numericUpDown.Name = "numericUpDown";
             this.numericUpDown.Size = new System.Drawing.Size(180, 31);
             this.numericUpDown.TabIndex = 1;
             // 
