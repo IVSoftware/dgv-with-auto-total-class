@@ -36,6 +36,7 @@ Your code so far looks reasonable. Perhaps I can help with the big picture of ge
     }
 ***
 **BINDABLE PROPERTIES**
+
 In order to create a bound property that supports two-way communication, you need a way to detect and notify when the properties change. For the `parent` class it would look something like this:
 
     public class parent : INotifyPropertyChanged
@@ -71,6 +72,7 @@ This class will support the data binding to the `numericUpDown` which could be a
 
 ***
 **RESPONDING TO CHANGES INTERNALLY**
+
 Once you make of your properties in the `child` class bindable by using the example above, you might take the approach of handling certain changes internally in which case you would suppress the firing of the property change notification.
 
     public class child : INotifyPropertyChanged
