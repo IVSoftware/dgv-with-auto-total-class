@@ -17,7 +17,53 @@ namespace dgv_with_auto_total_class
         {
             InitializeComponent();
         }
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.DataSource = Children;
 
+            // Add one or more child items to autogenerate rows.
+            Children.Add(new child
+            {
+                    product = "GEARWRENCH Pinch Off Pliers",
+                    price = 27.10m,
+                    amount = 1.0m
+            });
+            Children.Add(new child
+            {
+                product = "AXEMAX Bungee Cords",
+                price = 25.48m,
+                amount = 1.0m
+            });
+
+            // Format rows
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                switch (column.Name)
+                {
+                    case nameof(child.product):
+                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        break;
+                    default:
+                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        column.DefaultCellStyle.Format = "F2";
+                        break;
+                }
+            }
+
+            //Children.ListChanged += Children_ListChanged;
+
+            numericUpDown.DataBindings.Add(
+                nameof(numericUpDown.Value),
+                parent_object, 
+                nameof(parent_object.total), 
+                true, 
+                DataSourceUpdateMode.OnPropertyChanged);
+        }
+
+        private readonly BindingList<child> Children = new BindingList<child>();
+        private readonly parent parent_object = new parent();
     }
     public class child : INotifyPropertyChanged
     {
@@ -101,6 +147,5 @@ namespace dgv_with_auto_total_class
     public class parent
     {
         public decimal total { get; set; }
-        public BindingList<child> childs { get; set; }
     }
 }
