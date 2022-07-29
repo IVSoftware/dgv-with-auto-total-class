@@ -1,4 +1,4 @@
-Your code so far looks reasonable. Perhaps I can help with the big picture of getting everything hooked up. So the first thing is to simplify the data binding for the DGV where all you need is `dataGridView.DataSource = childs`. If you did nothing else besides initialize it by overriding `MainForm.OnLoad` you'd already have a decent-looking view but it would be missing interactions.
+Your code so far looks reasonable except that there are a few missing pieces in terms of getting everything hooked up so I'll offer a few suggestions. The first would be to simplify the data binding for the `DataGridView` where all you need is `dataGridView.DataSource = childs`. If you did nothing else besides initialize it by overriding `MainForm.OnLoad` you'd already have a decent-looking view but it would be missing interactions.
 
 ![prelim](https://github.com/IVSoftware/dgv-with-auto-total-class/blob/master/dgv-with-auto-total-class/ReadMe/prelim.png)
 
