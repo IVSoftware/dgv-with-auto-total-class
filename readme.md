@@ -73,7 +73,7 @@ Now when you apply the `numericUpDown` data binding (put this at the bottom of `
 ***
 **RESPONDING TO CHANGES INTERNALLY**
 
-Once you make of your properties in the `child` class bindable by using the example above, you might take the approach of handling certain changes internally in which case you would suppress the firing of the property change notification.
+Once you make of your properties in the `child` class bindable in the same way by using the example above, consider taking the approach of handling certain changes internally in which case you would suppress the firing of the property change notification.
 
     public class child : INotifyPropertyChanged
     {
