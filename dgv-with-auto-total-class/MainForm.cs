@@ -17,7 +17,6 @@ namespace dgv_with_auto_total_class
             base.OnLoad(e);
             childs.ListChanged += parent_object.onChildrenChanged;
 
-            dataGridView.AllowUserToAddRows = false;
             dataGridView.DataSource = childs;
 
             // Add one or more child items to autogenerate rows.
@@ -117,23 +116,24 @@ namespace dgv_with_auto_total_class
             }
         }
 
-        private void recalcTotal()
-        {
-            total = price * amount;
-        }
-
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             switch (propertyName)
             {
                 case nameof(price):
                 case nameof(amount):
+                    // Perform an internal calculation.
                     recalcTotal();
                     break;
                 default:
+                    // Notify subscribers of important changes like product and total.
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                     break;
             }
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private void recalcTotal()
+        {
+            total = price * amount;
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

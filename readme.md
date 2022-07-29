@@ -60,10 +60,61 @@ In order to create a bound property that supports two-way communication, you nee
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
- ***
- **HOW TO RESPOND INTERNALLY**
+This class will support the data binding to the `numericUpDown` which could be added at the bottom of `OnLoad`.
 
+    numericUpDown.DataBindings.Add(
+        nameof(numericUpDown.Value),
+        parent_object, 
+        nameof(parent_object.total), 
+        false, 
+        DataSourceUpdateMode.OnPropertyChanged);
 
+***
+**RESPONDING TO CHANGES INTERNALLY**
+Once you make of your properties in the `child` class bindable by using the example above, you might take the approach of handling certain changes internally in which case you would suppress the firing of the property change notification.
 
+    public class child : INotifyPropertyChanged
+    {
+        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            switch (propertyName)
+            {
+                case nameof(price):
+                case nameof(amount):
+                    // Perform an internal calculation.
+                    recalcTotal();
+                    break;
+                default:
+                    // Notify subscribers of important changes like product and total.
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                    break;
+            }
+        }
+        private void recalcTotal()
+        {
+            total = price * amount;
+        }
+        ...
+    }
 
+***
+**Connect the `total` property in the `parent` class.**
+
+The only thing missing now is having a way to tell the `parent_object` that a new global total for _all_ the rows is needed. The good news is that the bindings are already in place from the previous steps. To detect _any_ change to the DGV whether a new row is added or a a total is edited, subscribe to the `ListChanged` event of the `childs` collection by making this the first line in the `OnLoad` (before adding any items).
+
+    childs.ListChanged += parent_object.onChildrenChanged;
+
+This is a method that will need to be implemented in the `parent_object` class. Something like this:
+
+    internal void onChildrenChanged(object sender, ListChangedEventArgs e)
+    {
+        var tmpTotal = 0m;
+        foreach (var child in (IList<child>)sender)
+        {
+            tmpTotal += child.total;
+        }
+        total = tmpTotal;
+    }
+
+If you implement these steps, you'll have a fully-functional linked view where you can add, remove, and modify `child` records. 
 
