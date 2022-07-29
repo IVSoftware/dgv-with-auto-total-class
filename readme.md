@@ -33,9 +33,11 @@ This will look at how to hook up class interactions to bindings. The first thing
                     break;
             }
         }
+        private readonly BindingList<child> childs = new BindingList<child>();
+        private readonly parent parent_object = new parent();
     }
 ***
-**BINDABLE PROPERTIES**
+**Bindable Properties**
 
 In order to create a bound property that supports two-way communication, you need a way to detect and notify when the properties change. For example, to make the `total` property bindable in the `parent` class do this:
 
@@ -71,7 +73,7 @@ The data binding shown in your code for numericUpDown will now respond to change
         DataSourceUpdateMode.OnPropertyChanged);
 
 ***
-**RESPONDING TO CHANGES INTERNALLY**
+**Responding to Changes _Internally_**
 
 Once you make _all_ of your properties in the `child` class bindable in the same way by using the example above, consider taking the approach of handling certain changes internally in which case you would suppress the firing of the property change notification.
 
@@ -100,7 +102,7 @@ Once you make _all_ of your properties in the `child` class bindable in the same
     }
 
 ***
-**Connect the `total` property in the `parent` class.**
+**Connecting the `total` property in the `parent` class.**
 
 The only thing missing now is having a way to tell the `parent_object` that a new global total for _all_ the rows is needed. The good news is that the bindings are already in place from the previous steps. To detect _any_ change to the DGV whether a new row is added or a a total is edited, subscribe to the `ListChanged` event of the `childs` collection by making this the first line in the `OnLoad` (before adding any items).
 

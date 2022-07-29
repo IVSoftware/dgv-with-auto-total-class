@@ -55,7 +55,6 @@ namespace dgv_with_auto_total_class
                 false, 
                 DataSourceUpdateMode.OnPropertyChanged);
         }
-
         private readonly BindingList<child> childs = new BindingList<child>();
         private readonly parent parent_object = new parent();
     }
