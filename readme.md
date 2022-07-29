@@ -118,6 +118,8 @@ This is a method that will need to be implemented in the `parent_object` class. 
         total = tmpTotal;
     }
 
+**READY TO TEST**
+
 If you implement these steps, you'll have a fully-functional linked view where you can add, remove, and modify `child` records. 
 
 ![functional-bindings](https://github.com/IVSoftware/dgv-with-auto-total-class/blob/master/dgv-with-auto-total-class/ReadMe/functional-bindings.png)
