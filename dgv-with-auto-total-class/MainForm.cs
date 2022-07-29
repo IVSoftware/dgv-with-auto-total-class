@@ -106,7 +106,8 @@ namespace dgv_with_auto_total_class
         public decimal total
         {
             get => _total;
-            set
+            // Read-only in DGV
+            private set
             {
                 if (!Equals(_total, value))
                 {
