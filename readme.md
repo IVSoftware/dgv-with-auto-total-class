@@ -1,6 +1,6 @@
 Your code so far looks reasonable. Perhaps I can help with the big picture of getting everything hooked up. So the first thing is to simplify the data binding for the DGV where all you need is `dataGridView.DataSource = childs`. If you did nothing else besides initialize it by overriding `MainForm.OnLoad` you'd already have a decent-looking view but it would be missing interactions.
 
-![screenshot]()
+![prelim](https://github.com/IVSoftware/dgv-with-auto-total-class/blob/master/dgv-with-auto-total-class/ReadMe/prelim.png)
 
     protected override void OnLoad(EventArgs e)
     {
@@ -118,3 +118,4 @@ This is a method that will need to be implemented in the `parent_object` class. 
 
 If you implement these steps, you'll have a fully-functional linked view where you can add, remove, and modify `child` records. 
 
+![functional-bindings](https://github.com/IVSoftware/dgv-with-auto-total-class/blob/master/dgv-with-auto-total-class/ReadMe/functional-bindings.png)
