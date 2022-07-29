@@ -61,7 +61,7 @@ In order to create a bound property that supports two-way communication, you nee
         public event PropertyChangedEventHandler PropertyChanged;
     }
 
-This class will support the data binding to the `numericUpDown` which could be added at the bottom of `OnLoad`.
+Now when you go to do the `numericUpDown` data binding (which could be added at the bottom of `OnLoad`) it will respond to changes of `total`.
 
     numericUpDown.DataBindings.Add(
         nameof(numericUpDown.Value),
