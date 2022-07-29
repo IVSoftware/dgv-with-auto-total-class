@@ -37,7 +37,7 @@ Your code so far looks reasonable. Perhaps I can help with the big picture of ge
 ***
 **BINDABLE PROPERTIES**
 
-In order to create a bound property that supports two-way communication, you need a way to detect and notify when the properties change. For the `parent` class it would look something like this:
+In order to create a bound property that supports two-way communication, you need a way to detect and notify when the properties change. For example, to make the `total` property bindable in the `parent` class do this:
 
     public class parent : INotifyPropertyChanged
     {
